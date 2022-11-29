@@ -66,24 +66,23 @@ BusStation should:
 -override the show_info() method from Station to display the bus routes and if the station is open, in addition to the station name and location
 '''
 class BusStation(Station):
-    def __init__(self, routes, station_name, location):
+    def __init__(self, routes, open, station_name, location):
         super().__init__(station_name, location)
         self.routes = routes
-        self.open = True
+        self.open = open
     
     def open_station(self):
-        print("The station is open.")
+        if self.open == True:
+            self.open = 'open'
 
     def close_station(self):
-        print("The station is closed.")
+        if self.open == False:
+            self.open = 'closed'
 
     def show_info(self):
-        if self.open == True:
-            print(f'The bus routes are {self.routes}. {self.station_name} is located at {self.location}.') 
-            self.open_station()
-        else:
-            print(f'The bus routes are {self.routes}. {self.station_name} is located at {self.location}.')
-            self.close_station()
+        self.open_station()
+        self.close_station()
+        print(f'The bus routes are {self.routes} and the station is {self.open}. {self.station_name} is located at {self.location}.')
 
 
 print('Question 4: Make an example bus station')
@@ -97,7 +96,7 @@ station_name: 'NYC Megabus Stop'
 location: '34th street and 12th avenue'
 lines: ['Boston', 'DC', 'Philly']
 '''
-bus_station1 = BusStation(routes=['Boston', 'DC', 'Philly'], station_name='NYC Megabus Stop', location='34th street and 12th avenue')
+bus_station1 = BusStation(routes=['Boston', 'DC', 'Philly'], open=True, station_name='NYC Megabus Stop', location='34th street and 12th avenue')
 
 bus_station1.show_info()
 print('Question 5: Importing your classes')
